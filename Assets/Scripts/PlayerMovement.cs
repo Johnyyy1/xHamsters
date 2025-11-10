@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 target;
     private Rigidbody rb;
     private Vector3 lastVelocity;
+    public bool canMove = false;
 
     [SerializeField]
     private int currentHp;
@@ -30,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
+        if (!canMove) return;
+
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -41,6 +44,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!canMove) return;
+
+
         lastVelocity = rb.linearVelocity;
         if (target != null && rb.linearVelocity.magnitude <= maxSpeed)
         {
@@ -53,6 +59,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!canMove) return;
+
+
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
