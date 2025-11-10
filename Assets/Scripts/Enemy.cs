@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-    private Camera mainCamera;
+    [SerializeField]
+    private GameObject targetPlayer;
     private Vector3 target;
     private Rigidbody rb;
-    private Vector3 lastVelocity;
+    public Vector3 lastVelocity;
 
     [SerializeField]
     private int currentHp;
 
+
     [SerializeField]
     private int maxHp;
+
 
     [SerializeField]
     private float acceleration = 30;
@@ -22,20 +25,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
         currentHp = maxHp;
+
     }
 
-    
+
     void Update()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+        if (targetPlayer != null)
         {
-            target = hit.point;
+            target = targetPlayer.transform.position;
         }
     }
 
@@ -51,23 +51,16 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(Vector3.up * rb.linearVelocity.magnitude);
     }
 
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            collision.gameObject.GetComponent<Enemy>().TakeDamage((int)(lastVelocity.magnitude));
-            TakeDamage((int)(enemy.lastVelocity.magnitude));
-
-        }
-
         rb.linearVelocity = Vector3.Reflect(lastVelocity, collision.contacts[0].normal);
     }
 
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
-        if(currentHp < 0)
+        if (currentHp < 0)
         {
             Destroy(gameObject);
         }
