@@ -8,6 +8,10 @@ public class GoToScene : MonoBehaviour
     {
         SceneManager.LoadScene("xHamsters");
     }
+    public void SwitchToShop()
+    {
+        SceneManager.LoadScene("ShopScnee");
+    }
     public void ExitGame()
     {
         Application.Quit(); // pokud hrajes v buildu
