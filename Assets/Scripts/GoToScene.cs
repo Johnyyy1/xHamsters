@@ -12,6 +12,11 @@ public class GoToScene : MonoBehaviour
     {
         SceneManager.LoadScene("ShopScnee");
     }
+
+    public void SwitchToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     public void ExitGame()
     {
         Application.Quit(); // pokud hrajes v buildu
