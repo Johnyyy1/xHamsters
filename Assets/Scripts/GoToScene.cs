@@ -10,7 +10,7 @@ public class GoToScene : MonoBehaviour
     }
     public void SwitchToShop()
     {
-        SceneManager.LoadScene("ShopScnee");
+        SceneManager.LoadScene("UpdatedShopScene");
     }
 
     public void SwitchToMainMenu()
