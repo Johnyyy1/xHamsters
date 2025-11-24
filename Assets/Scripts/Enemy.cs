@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject targetPlayer;
+    public GameObject targetPlayer;
     private Vector3 target;
     private Rigidbody rb;
     public Vector3 lastVelocity;
+    public bool canMove = false;
 
     [SerializeField]
     private int currentHp;
@@ -33,6 +33,9 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if (!canMove) return;
+
+
         if (targetPlayer != null)
         {
             target = targetPlayer.transform.position;
@@ -41,6 +44,9 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!canMove) return;
+
+
         lastVelocity = rb.linearVelocity;
         if (target != null && rb.linearVelocity.magnitude <= maxSpeed)
         {
@@ -54,6 +60,8 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!canMove) return;
+
         rb.linearVelocity = Vector3.Reflect(lastVelocity, collision.contacts[0].normal);
     }
 
