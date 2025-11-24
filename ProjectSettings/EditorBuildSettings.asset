@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShopScnee.unity
     guid: 8f418779662099f43bcd7e0f98a320b8
+  - enabled: 1
+    path: Assets/Scenes/LockerScene.unity
+    guid: 49a08d88be509eb429cfcc2918240c3e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -17,6 +17,11 @@ public class GoToScene : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void SwitchToInventory()
+    {
+        SceneManager.LoadScene("LockerScene");
+    }
     public void ExitGame()
     {
         Application.Quit(); // pokud hrajes v buildu
