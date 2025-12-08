@@ -8,14 +8,25 @@ public class UIManager : MonoBehaviour
     private ArenaManager arenaManager;
 
     [SerializeField]
-    private Image countdownImage;
+    private PlayerMovement playerMovement;
 
     [SerializeField]
+    private Image countdownImage;
+   
+    [SerializeField]
     private Sprite[] countdownSprites;
+
+    [SerializeField] 
+    private Image gameoverImage;
+
+
+    [SerializeField]
+    private Sprite gameoverSprite;
 
     void Awake()
     {
         arenaManager.ChangeCountdown += ChangeCountdownSprite;
+        playerMovement.ShowGameover += ChangeGameoverSprite;
     }
 
     private void ChangeCountdownSprite(int spriteNumber)
@@ -32,6 +43,14 @@ public class UIManager : MonoBehaviour
             }
             countdownImage.sprite = countdownSprites[spriteNumber];
         }
+    }
+
+    private void ChangeGameoverSprite()
+    {
+        Debug.Log("change sprite");
+        gameoverImage.enabled = true;
+        gameoverImage.sprite = gameoverSprite;
+        
     }
 
 
