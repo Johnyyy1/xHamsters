@@ -10,12 +10,17 @@ public class GoToScene : MonoBehaviour
     }
     public void SwitchToShop()
     {
-        SceneManager.LoadScene("ShopScnee");
+        SceneManager.LoadScene("UpdatedShopScene");
     }
 
     public void SwitchToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void SwitchToInventory()
+    {
+        SceneManager.LoadScene("LockerScene");
     }
     public void ExitGame()
     {
