@@ -13,21 +13,44 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private int maxHp;
-
     [SerializeField]
     private float acceleration = 30;
-
     [SerializeField]
     private float maxSpeed;
+    [SerializeField]
+    private float damageMult;
+    [SerializeField]
+    private float knockback;
+
+    private BeybladePart bit;
+    private BeybladePart blade;
+    private BeybladePart ratchet;
+    private BeybladePart[] parts;
 
 
     void Start()
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
+        InitializeStats();
         currentHp = maxHp;
     }
 
+    private void InitializeStats()
+    {
+
+        parts = new[] { bit,blade,ratchet};
+
+        foreach (var part in parts)
+        {
+            maxHp += part.hp;
+            acceleration += part.acceleration;
+            maxSpeed += part.maxSpeed;
+            damageMult += part.damageMult;
+            knockback += part.knockback;
+        }
+
+    }
     
     void Update()
     {
