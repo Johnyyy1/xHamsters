@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void InitializeStats()
     {
+
         parts = new[] { bit,blade,ratchet};
 
         foreach (var part in parts)
