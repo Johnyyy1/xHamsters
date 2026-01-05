@@ -1,4 +1,8 @@
+using System;
+using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,8 +31,10 @@ public class PlayerMovement : MonoBehaviour
     private BeybladePart ratchet;
     private BeybladePart[] parts;
 
+    public event Action ShowGameover;
 
-    void Start()
+
+    void Start()    
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
@@ -101,7 +107,14 @@ public class PlayerMovement : MonoBehaviour
         currentHp -= damage;
         if(currentHp < 0)
         {
-            Destroy(gameObject);
+            GameOver();
+            gameObject.SetActive(false);
         }
+    }
+    public void GameOver()
+    {
+        Debug.Log("dead");
+        ShowGameover?.Invoke(); //nefunguje jeste idk proc
+        
     }
 }

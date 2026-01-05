@@ -39,7 +39,7 @@ public class ArenaManager : MonoBehaviour
     public void StartGame()
     {
         SpawnPlayers();
-        StartCoroutine(countdownRoutine());
+        StartCoroutine(countdownRoutine()); 
     }
 
     IEnumerator countdownRoutine()
