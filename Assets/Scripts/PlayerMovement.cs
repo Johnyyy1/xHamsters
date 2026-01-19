@@ -114,7 +114,8 @@ public class PlayerMovement : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("dead");
-        ShowGameover?.Invoke(); //nefunguje jeste idk proc
-        
+       // ShowGameover?.Invoke(); //nefunguje jeste idk proc
+       mainCamera.GetComponent<GoToScene>().SwitchToDeathScreen();
+
     }
 }

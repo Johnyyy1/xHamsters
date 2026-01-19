@@ -22,6 +22,15 @@ public class GoToScene : MonoBehaviour
     {
         SceneManager.LoadScene("LockerScene");
     }
+
+    public void SwitchToArenaSelection()
+    {
+        SceneManager.LoadScene("ArenaSelection");
+    }
+
+    public void SwitchToDeathScreen() { 
+        SceneManager.LoadScene("DeathScreen");
+    }
     public void ExitGame()
     {
         Application.Quit(); // pokud hrajes v buildu
