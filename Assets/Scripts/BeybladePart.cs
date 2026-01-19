@@ -16,8 +16,14 @@ public class BeybladePart : MonoBehaviour
 
     public float knockback;
 
+    public GameObject prefab;
 
     public Sprite icon;
+
+    public void AddPrefab()
+    {
+        prefab = this.gameObject;
+    }
 
 }
 

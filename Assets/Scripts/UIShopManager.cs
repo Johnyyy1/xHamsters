@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class UIShopManager : MonoBehaviour
 {
     [SerializeField]
+    private bool isLocker = false;
+
+    [SerializeField]
     private List<BeybladePart> availableParts;
 
     [SerializeField]
@@ -19,7 +22,10 @@ public class UIShopManager : MonoBehaviour
 
     private void Start()
     {
-        
+        if (isLocker)
+        {
+            availableParts = GameManager.Instance.ownedParts;
+        }
     }
 
 

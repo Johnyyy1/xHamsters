@@ -46,10 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 0
   name: Part
-  damageMult: 0
-  maxSpeed: 0
-  acceleration: 0
-  hp: 0
+  damageMult: 1.2
+  maxSpeed: 10
+  acceleration: 5
+  hp: 10
   price: 5
-  knockback: 0
+  knockback: 10
   icon: {fileID: 21300000, guid: 90f63e707b19f5a4b8fdaa7a2180da87, type: 3}

@@ -33,6 +33,12 @@ public class PlayerMovement : MonoBehaviour
 
     public event Action ShowGameover;
 
+    [SerializeField]
+    private Transform bitContainer;
+    [SerializeField]
+    private Transform bladeContainer;
+    [SerializeField]
+    private Transform ratchetContainer;
 
     void Start()    
     {
@@ -40,6 +46,26 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         InitializeStats();
         currentHp = maxHp;
+
+        foreach (BeybladePart part in GameManager.Instance.AddParts())
+        {
+            switch (part.partType)
+            {
+                case PartType.Bit:
+                    bit = part;
+                    break;
+                case PartType.Blade:
+                    blade = part;
+                    break;
+                case PartType.Ratchet:
+                    ratchet = part;
+                    break;
+            }
+        }
+
+        Instantiate(bit.prefab, bitContainer);
+        Instantiate(blade.prefab, bladeContainer);
+        Instantiate(ratchet.prefab, ratchetContainer);
     }
 
     private void InitializeStats()
