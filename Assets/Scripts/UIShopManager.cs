@@ -26,36 +26,40 @@ public class UIShopManager : MonoBehaviour
 
     public void ShowShop(string type)
     {
-        // Nejprve smažeme staré ikony
+
         foreach (Transform child in partsContainer)
         {
             Destroy(child.gameObject);
         }
 
-        // Ujistíme se, že partsContainer má GridLayoutGroup
+
         GridLayoutGroup grid = partsContainer.GetComponent<GridLayoutGroup>();
         if (grid == null)
         {
             grid = partsContainer.gameObject.AddComponent<GridLayoutGroup>();
             grid.cellSize = new Vector2(100, 100);
             grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-            grid.constraintCount = 4;  // 4 sloupce
-            grid.spacing = new Vector2(5, 5); // mezery mezi ikonami
+            grid.constraintCount = 4; 
+            grid.spacing = new Vector2(5, 5); 
             grid.childAlignment = TextAnchor.UpperLeft;
         }
 
-        // Pøidáme ikony
+
         foreach (var part in availableParts)
         {
             if (part.partType.ToString() == type)
             {
-                Image iconObj = new GameObject("Icon").AddComponent<Image>();
-                iconObj.sprite = part.icon;
+                Button iconObj = new GameObject("Icon").AddComponent<Button>();
+                Image img = iconObj.gameObject.AddComponent<Image>();
+                img.sprite = part.icon;
 
                 iconObj.transform.SetParent(partsContainer, false);
 
                 RectTransform rt = iconObj.GetComponent<RectTransform>();
                 rt.sizeDelta = new Vector2(100, 100);
+                
+
+                iconObj.onClick.AddListener(() => ShowDetails(part));
             }
         }
     }

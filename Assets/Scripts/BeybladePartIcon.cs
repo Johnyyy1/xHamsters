@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BeybladePartIcon : MonoBehaviour
 {
     public RawImage icon;
-    public Button button;
+    public Button buyButton;
     public TMP_Text price;
 
 
@@ -17,5 +17,6 @@ public class BeybladePartIcon : MonoBehaviour
     {
         part = p;
         price.text = part.price.ToString();
+
     }
 }
