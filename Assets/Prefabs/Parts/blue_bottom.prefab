@@ -78,11 +78,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partType: 0
-  name: 
+  partName: Blue Bit
   damageMult: 1.2
   maxSpeed: 10
   acceleration: 5
   hp: 10
   price: 5
   knockback: 10
+  prefab: {fileID: 3127316608161772329}
   icon: {fileID: 0}

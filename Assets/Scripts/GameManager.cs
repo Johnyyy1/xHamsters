@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public List<BeybladePart> ownedParts = new List<BeybladePart>();
+    public List<BeybladePart> availableParts = new List<BeybladePart>();
     public int money = 100;
 
     [SerializeField]
@@ -55,6 +56,10 @@ public class GameManager : MonoBehaviour
 
     public BeybladePart[] AddParts()
     {
+        Debug.Log("Bit: " + equippedBit);
+        Debug.Log("Blade: " + equippedBlade);
+        Debug.Log("Ratchet: " + equippedRatchet);
+
         equippedBit.AddPrefab();
         equippedBlade.AddPrefab();
         equippedRatchet.AddPrefab();

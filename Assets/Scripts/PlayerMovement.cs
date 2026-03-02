@@ -44,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
-        InitializeStats();
         currentHp = maxHp;
 
         foreach (BeybladePart part in GameManager.Instance.AddParts())
@@ -62,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
                     break;
             }
         }
+        InitializeStats();
+
 
         Instantiate(bit.prefab, bitContainer);
         Instantiate(blade.prefab, bladeContainer);
@@ -75,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (var part in parts)
         {
+
             maxHp += part.hp;
             acceleration += part.acceleration;
             maxSpeed += part.maxSpeed;

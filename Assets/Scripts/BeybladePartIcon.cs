@@ -7,7 +7,8 @@ public class BeybladePartIcon : MonoBehaviour
 {
     [SerializeField]
     private bool isOwned = false;
-    public RawImage icon;
+    [SerializeField]
+    private TMP_Text partName;
     public Button buyButton;
     public TMP_Text price;
 
@@ -17,14 +18,17 @@ public class BeybladePartIcon : MonoBehaviour
 
     public void Init(BeybladePart p, UIShopManager shop)
     {
+        part = p;
+
         if (!isOwned)
         {
-            part = p;
             price.text = part.price.ToString();
+            partName.text = part.partName;
         }
         else
         {
-            
+            partName.text = part.name;
+
         }
 
     }
@@ -38,7 +42,8 @@ public class BeybladePartIcon : MonoBehaviour
         }
         else if (isOwned)
         {
-            
+            GameManager.Instance.EquipPart(part);
+            Debug.Log("equip");
         }
     }
 }

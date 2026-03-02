@@ -221,7 +221,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownedParts: []
+  availableParts:
+  - {fileID: -1974852133717955049, guid: 41c6d0cdcd53e9c42bfa080068fb2165, type: 3}
+  - {fileID: -8025888722087010860, guid: 9cb2c6ff652c7514fae5b87b4588a929, type: 3}
+  - {fileID: -7363853239295402604, guid: 73439ad3278f83145a30baaadeeff9bd, type: 3}
+  - {fileID: 5393258522797969776, guid: ef477cf2c6cdd6542809bb760595776d, type: 3}
+  - {fileID: -512561409720853520, guid: 84289861e81b3fc4281b4cdceb2bff9c, type: 3}
+  - {fileID: -151297494240461791, guid: 0fb569498ac044f44955a162ad439df4, type: 3}
+  - {fileID: 5579968093526132906, guid: 127e17d2c29abf84c90475ac58ff6b0e, type: 3}
+  - {fileID: -7843947982157217540, guid: d009130a6fe4fb9429f6c40ada2688a5, type: 3}
+  - {fileID: 2489293461472492078, guid: 7baa349d13609fa4c8c6497183f7da8a, type: 3}
+  - {fileID: 4384119282270363184, guid: 488ee4bc7e0ff0d42a1e0ed361fdcf76, type: 3}
+  - {fileID: 7379381432537525043, guid: 306d5d35eab0ec84eb99d39b70835e18, type: 3}
+  - {fileID: 8743564319214601081, guid: e9d5610e1863dcd489c2d57427162b9b, type: 3}
+  - {fileID: 1970102149489324334, guid: 19fa587569a35c941b6731bf50742c81, type: 3}
+  - {fileID: -5482296920283017472, guid: 7ded21eafd3cc7e4e9d521a4b8e865bd, type: 3}
+  - {fileID: 1562064004947395533, guid: 3812581d645fa6240b28291b771393e4, type: 3}
+  - {fileID: 2266483507576096170, guid: 7a5e89fd28f55f5439661aeab65ce039, type: 3}
+  - {fileID: -6342481574450649833, guid: fa418381f98fa3a4386e8a3871858d3e, type: 3}
+  - {fileID: -6689240711225598777, guid: 28f56cbe990b65b4f9d91a782c9066e1, type: 3}
+  - {fileID: 6943197775370553880, guid: 25a3b9f494f19914389817a498b39e2f, type: 3}
+  - {fileID: -1071241200911321192, guid: a371ddf31642c474da6c100c078068c8, type: 3}
+  - {fileID: 4407122076857787772, guid: 93d87421cfc880b47834dd38679bdc29, type: 3}
+  - {fileID: -8346428146711818296, guid: c19dbdda3bb6b344086da6cd6af1032a, type: 3}
+  - {fileID: 4121693473558997873, guid: 2324fd2cde067e440825ed70c6ac3b36, type: 3}
+  - {fileID: 4204935381404273633, guid: c806e31e12ea1c14f8dcac48bf755401, type: 3}
+  - {fileID: 1564601647428958660, guid: 0cab86817be8c31439b91fcbdf6df769, type: 3}
+  - {fileID: -3313531937414803871, guid: 0f3cb4f55d4e71e4a9206afd5392f4ca, type: 3}
+  - {fileID: 4843727342487997098, guid: 898f6014791e16d41b31aa0b392217fb, type: 3}
+  - {fileID: 2792380545369625690, guid: 0fc894c50e7483b4d868c4ff5c995dec, type: 3}
+  - {fileID: -2201209224202446412, guid: 26f4bb7f639799a4083ba9990d449ddb, type: 3}
+  - {fileID: -9041216755429307223, guid: e34ceb5326e17b0409cae2be8a1cb53c, type: 3}
   money: 100
+  equippedBit: {fileID: 2489293461472492078, guid: 7baa349d13609fa4c8c6497183f7da8a, type: 3}
+  equippedBlade: {fileID: 7379381432537525043, guid: 306d5d35eab0ec84eb99d39b70835e18, type: 3}
+  equippedRatchet: {fileID: 4384119282270363184, guid: 488ee4bc7e0ff0d42a1e0ed361fdcf76, type: 3}
 --- !u!4 &151146008
 Transform:
   m_ObjectHideFlags: 0

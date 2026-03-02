@@ -77,12 +77,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d4fd9d97c81ef44a344820d915b6c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partType: 0
-  name: 
+  partType: 2
+  partName: Yellow Ratchet
   damageMult: 1.2
   maxSpeed: 10
   acceleration: 5
   hp: 10
   price: 5
   knockback: 10
+  prefab: {fileID: 2203701769975105534}
   icon: {fileID: 0}
