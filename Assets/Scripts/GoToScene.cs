@@ -28,8 +28,12 @@ public class GoToScene : MonoBehaviour
         SceneManager.LoadScene("ArenaSelection");
     }
 
-    public void SwitchToDeathScreen() { 
+    public void SwitchToDeathScreen() {
         SceneManager.LoadScene("DeathScreen");
+    }
+
+    public void SwitchToWinScreen() {
+        SceneManager.LoadScene("WinScreen");
     }
     public void ExitGame()
     {

@@ -71,6 +71,7 @@ public class Enemy : MonoBehaviour
         if (currentHp < 0)
         {
             Destroy(gameObject);
+            Camera.main.GetComponent<GoToScene>().SwitchToWinScreen();
         }
     }
 }

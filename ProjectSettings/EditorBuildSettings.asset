@@ -21,8 +21,17 @@ EditorBuildSettings:
     path: Assets/Scenes/LockerScene.unity
     guid: 49a08d88be509eb429cfcc2918240c3e
   - enabled: 1
+    path: Assets/Scenes/ArenaSelection.unity
+    guid: 168c113fa6c93d74b822418a823f99e9
+  - enabled: 1
     path: Assets/Scenes/UpdatedShopScene.unity
     guid: 939009be831af6246b60b1004ffbea38
+  - enabled: 1
+    path: Assets/Scenes/WinScreen.unity
+    guid: 2b8db8404373d1549ab715f6a6ee837b
+  - enabled: 1
+    path: Assets/Scenes/DeathScreen.unity
+    guid: 63e4d139c21e2c845ab13b8a8a8b9f0f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
