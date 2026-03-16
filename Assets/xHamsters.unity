@@ -463,7 +463,7 @@ GameObject:
   - component: {fileID: 342138883}
   - component: {fileID: 342138882}
   m_Layer: 5
-  m_Name: Image
+  m_Name: PlayerHpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -538,7 +538,7 @@ GameObject:
   - component: {fileID: 867869810}
   - component: {fileID: 867869809}
   m_Layer: 5
-  m_Name: Image
+  m_Name: EnemyHpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

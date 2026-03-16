@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class Enemy : MonoBehaviour
 {
@@ -11,10 +12,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int currentHp;
 
-
     [SerializeField]
     private int maxHp;
-
 
     [SerializeField]
     private float acceleration = 30;
@@ -22,19 +21,20 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float maxSpeed;
 
+    private Image hpBar;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        hpBar = GameObject.Find("EnemyHpBar").GetComponent<Image>();
         currentHp = maxHp;
-
+        UpdateHpBar();
     }
 
 
     void Update()
     {
         if (!canMove) return;
-
 
         if (targetPlayer != null)
         {
@@ -45,7 +45,6 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         if (!canMove) return;
-
 
         lastVelocity = rb.linearVelocity;
         if (target != null && rb.linearVelocity.magnitude <= maxSpeed)
@@ -68,10 +67,20 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
-        if (currentHp < 0)
+        UpdateHpBar(); 
+
+        if (currentHp <= 0) 
         {
             Destroy(gameObject);
             Camera.main.GetComponent<GoToScene>().SwitchToWinScreen();
+        }
+    }
+
+    private void UpdateHpBar()
+    {
+        if (hpBar != null)
+        {
+            hpBar.fillAmount = (float)currentHp / maxHp;
         }
     }
 }

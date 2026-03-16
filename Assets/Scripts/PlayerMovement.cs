@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; 
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float knockback;
 
+    private Image hpBar;
+
     private BeybladePart bit;
     private BeybladePart blade;
     private BeybladePart ratchet;
@@ -40,12 +43,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform ratchetContainer;
 
-    void Start()    
+    void Start()
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
-        InitializeStats();
-        currentHp = maxHp;
+
+        hpBar = GameObject.Find("PlayerHpBar").GetComponent<Image>();
 
         foreach (BeybladePart part in GameManager.Instance.AddParts())
         {
@@ -63,6 +66,10 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        InitializeStats();
+        currentHp = maxHp;
+        UpdateHpBar();
+
         Instantiate(bit.prefab, bitContainer);
         Instantiate(blade.prefab, bladeContainer);
         Instantiate(ratchet.prefab, ratchetContainer);
@@ -70,20 +77,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void InitializeStats()
     {
-
-        parts = new[] { bit,blade,ratchet};
+        parts = new[] { bit, blade, ratchet };
 
         foreach (var part in parts)
         {
-            maxHp += part.hp;
-            acceleration += part.acceleration;
-            maxSpeed += part.maxSpeed;
-            damageMult += part.damageMult;
-            knockback += part.knockback;
+            if (part != null) 
+            {
+                maxHp += part.hp;
+                acceleration += part.acceleration;
+                maxSpeed += part.maxSpeed;
+                damageMult += part.damageMult;
+                knockback += part.knockback;
+            }
         }
-
     }
-    
+
     void Update()
     {
         if (!canMove) return;
@@ -101,7 +109,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!canMove) return;
 
-
         lastVelocity = rb.linearVelocity;
         if (target != null && rb.linearVelocity.magnitude <= maxSpeed)
         {
@@ -116,13 +123,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!canMove) return;
 
-
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             collision.gameObject.GetComponent<Enemy>().TakeDamage((int)(lastVelocity.magnitude));
             TakeDamage((int)(enemy.lastVelocity.magnitude));
-
         }
 
         rb.linearVelocity = Vector3.Reflect(lastVelocity, collision.contacts[0].normal);
@@ -131,17 +136,27 @@ public class PlayerMovement : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
-        if(currentHp < 0)
+        UpdateHpBar(); 
+
+        if (currentHp <= 0) 
         {
             GameOver();
             gameObject.SetActive(false);
         }
     }
+
+    private void UpdateHpBar()
+    {
+        if (hpBar != null)
+        {
+            hpBar.fillAmount = (float)currentHp / maxHp;
+        }
+    }
+
     public void GameOver()
     {
         Debug.Log("dead");
-       // ShowGameover?.Invoke(); //nefunguje jeste idk proc
-       mainCamera.GetComponent<GoToScene>().SwitchToDeathScreen();
-
+        // ShowGameover?.Invoke(); 
+        mainCamera.GetComponent<GoToScene>().SwitchToDeathScreen();
     }
 }
