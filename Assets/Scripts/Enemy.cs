@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class Enemy : MonoBehaviour
 {
@@ -13,10 +14,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int currentHp;
 
-
     [SerializeField]
     private int maxHp;
-
 
     [SerializeField]
     private float acceleration = 30;
@@ -25,16 +24,14 @@ public class Enemy : MonoBehaviour
     private float maxSpeed;
     [SerializeField] private float damageMult = 1;
 
-    [SerializeField] private Transform bitContainer;
-    [SerializeField] private Transform bladeContainer;
-    [SerializeField] private Transform ratchetContainer;
+    private Image hpBar;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        EquipRandomParts();
+        hpBar = GameObject.Find("EnemyHpBar").GetComponent<Image>();
         currentHp = maxHp;
-
+        UpdateHpBar();
     }
 
     private void EquipRandomParts()
@@ -80,7 +77,6 @@ public class Enemy : MonoBehaviour
     {
         if (!canMove) return;
 
-
         if (targetPlayer != null)
         {
             target = targetPlayer.transform.position;
@@ -90,7 +86,6 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         if (!canMove) return;
-
 
         lastVelocity = rb.linearVelocity;
         if (target != null && rb.linearVelocity.magnitude <= maxSpeed)
@@ -113,9 +108,20 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
-        if (currentHp < 0)
+        UpdateHpBar(); 
+
+        if (currentHp <= 0) 
         {
             Destroy(gameObject);
+            Camera.main.GetComponent<GoToScene>().SwitchToWinScreen();
+        }
+    }
+
+    private void UpdateHpBar()
+    {
+        if (hpBar != null)
+        {
+            hpBar.fillAmount = (float)currentHp / maxHp;
         }
     }
 }
