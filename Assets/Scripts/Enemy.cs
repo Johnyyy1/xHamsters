@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI; 
 
@@ -20,6 +22,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private float maxSpeed;
+    [SerializeField] private float damageMult = 1;
 
     private Image hpBar;
 
@@ -29,6 +32,44 @@ public class Enemy : MonoBehaviour
         hpBar = GameObject.Find("EnemyHpBar").GetComponent<Image>();
         currentHp = maxHp;
         UpdateHpBar();
+    }
+
+    private void EquipRandomParts()
+    {
+        List<BeybladePart> allParts = GameManager.Instance.availableParts;
+
+        if (allParts.Count == 0) return;
+
+        BeybladePart randomBit = GetRandomPartByType(allParts, PartType.Bit);
+        BeybladePart randomBlade = GetRandomPartByType(allParts, PartType.Blade);
+        BeybladePart randomRatchet = GetRandomPartByType(allParts, PartType.Ratchet);
+
+
+        ApplyPart(randomBit, bitContainer);
+        ApplyPart(randomBlade, bladeContainer);
+        ApplyPart(randomRatchet, ratchetContainer);
+    }
+
+    private BeybladePart GetRandomPartByType(List<BeybladePart> list, PartType type)
+    {
+        var filtered = list.Where(p => p.partType == type).ToList();
+        if (filtered.Count == 0) return null;
+        return filtered[Random.Range(0, filtered.Count)];
+    }
+
+    private void ApplyPart(BeybladePart part, Transform container)
+    {
+        if (part == null) return;
+
+        maxHp += part.hp;
+        acceleration += part.acceleration;
+        maxSpeed += part.maxSpeed;
+        damageMult += part.damageMult;
+
+        if (part.prefab != null && container != null)
+        {
+            Instantiate(part.prefab, container);
+        }
     }
 
 

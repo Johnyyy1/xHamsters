@@ -65,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
                     break;
             }
         }
+        InitializeStats();
+
 
         InitializeStats();
         currentHp = maxHp;

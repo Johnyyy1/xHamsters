@@ -5,13 +5,13 @@ public class BeybladePart : MonoBehaviour
     public PartType partType;
 
 
-    public string name;
-    public float damageMult;
+    public string partName;
+    public float damageMult =0;
 
-    public float maxSpeed;
+    public float maxSpeed=0;
 
-    public float acceleration;
-    public int hp;
+    public float acceleration=0;
+    public int hp=0;
     public int price;
 
     public float knockback;
