@@ -829,6 +829,7 @@ RectTransform:
   - {fileID: 2008498789}
   - {fileID: 1774377256}
   - {fileID: 103663048}
+  - {fileID: 843693939}
   m_Father: {fileID: 1357498700}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -887,7 +888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOwned: 0
-  icon: {fileID: 843693940}
+  partName: {fileID: 103663049}
   buyButton: {fileID: 2008498790}
   price: {fileID: 696416453}
 --- !u!1 &790908427
