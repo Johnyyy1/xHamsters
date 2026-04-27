@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -43,7 +44,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform ratchetContainer;
 
+<<<<<<< HEAD
+
+    public Action<int,int> changeHp;
+
+    [Header("Overdrive Settings")]
+    [SerializeField] private float overdriveMultiplier = 1.8f;
+    [SerializeField] private float healthDrainPerSecond = 15f;
+
+    private bool isOverdriving = false;
+    private float drainTimer;
+
+
+    void Start()    
+=======
     void Start()
+>>>>>>> 6d164a4ab7da348ab6afccfae7d4198b58a34381
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
@@ -105,6 +121,27 @@ public class PlayerMovement : MonoBehaviour
         {
             target = hit.point;
         }
+
+        if (Input.GetKey(KeyCode.LeftShift) && currentHp > 5) 
+        {
+            isOverdriving = true;
+            HandleHealthDrain();
+        }
+        else
+        {
+            isOverdriving = false;
+        }
+    }
+
+    private void HandleHealthDrain()
+    {
+        drainTimer += Time.deltaTime;
+        if (drainTimer >= 0.1f)
+        {
+            int damageToTake = Mathf.CeilToInt(healthDrainPerSecond * 0.1f);
+            TakeDamage(damageToTake);
+            drainTimer = 0;
+        }
     }
 
     private void FixedUpdate()
@@ -112,35 +149,61 @@ public class PlayerMovement : MonoBehaviour
         if (!canMove) return;
 
         lastVelocity = rb.linearVelocity;
-        if (target != null && rb.linearVelocity.magnitude <= maxSpeed)
+        float currentMax = isOverdriving ? maxSpeed * overdriveMultiplier : maxSpeed;
+        float currentAccel = isOverdriving ? acceleration * overdriveMultiplier : acceleration;
+
+        if (target != null && rb.linearVelocity.magnitude <= currentMax)
         {
             Vector3 direction = (target - transform.position).normalized;
-            rb.AddForce(direction * acceleration);
+            rb.AddForce(direction * currentAccel);
         }
 
-        transform.Rotate(Vector3.up * rb.linearVelocity.magnitude);
+        float spinSpeed = isOverdriving ? rb.linearVelocity.magnitude * 2f : rb.linearVelocity.magnitude;
+        transform.Rotate(Vector3.up * spinSpeed);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!canMove) return;
+        if (!canMove || !collision.gameObject.CompareTag("Enemy")) return;
 
+<<<<<<< HEAD
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+
+        float myImpact = Vector3.Dot(lastVelocity, collision.contacts[0].normal * -1);
+        float enemyImpact = Vector3.Dot(enemy.lastVelocity, collision.contacts[0].normal);
+
+        if (myImpact > enemyImpact)
+        {
+            int damageToDeal = Mathf.CeilToInt(Mathf.Max(0, myImpact) * damageMult * 0.1f);
+            enemy.TakeDamage(damageToDeal);
+            rb.AddForce(Vector3.Reflect(lastVelocity, collision.contacts[0].normal) * knockback, ForceMode.Impulse);
+=======
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             collision.gameObject.GetComponent<Enemy>().TakeDamage((int)(lastVelocity.magnitude));
             TakeDamage((int)(enemy.lastVelocity.magnitude));
+>>>>>>> 6d164a4ab7da348ab6afccfae7d4198b58a34381
         }
-
-        rb.linearVelocity = Vector3.Reflect(lastVelocity, collision.contacts[0].normal);
+        else
+        {
+            int damageToReceive = Mathf.CeilToInt(Mathf.Max(0, enemyImpact) * enemy.damageMult * 0.1f);
+            TakeDamage(damageToReceive);
+        }
+        
     }
 
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
+<<<<<<< HEAD
+        changeHp?.Invoke(maxHp,currentHp);
+        if(currentHp < 0)
+=======
         UpdateHpBar(); 
 
         if (currentHp <= 0) 
+>>>>>>> 6d164a4ab7da348ab6afccfae7d4198b58a34381
         {
             GameOver();
             gameObject.SetActive(false);
@@ -158,7 +221,13 @@ public class PlayerMovement : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("dead");
+<<<<<<< HEAD
+       // ShowGameover?.Invoke(); //nefunguje jeste idk proc
+       //mainCamera.GetComponent<GoToScene>().SwitchToDeathScreen();
+
+=======
         // ShowGameover?.Invoke(); 
         mainCamera.GetComponent<GoToScene>().SwitchToDeathScreen();
+>>>>>>> 6d164a4ab7da348ab6afccfae7d4198b58a34381
     }
 }
