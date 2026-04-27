@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,13 +18,16 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int maxHp;
 
+    public Action<int, int> changeHp;
+
+
 
     [SerializeField]
     private float acceleration = 30;
 
     [SerializeField]
     private float maxSpeed;
-    [SerializeField] private float damageMult = 1;
+    [SerializeField] public float damageMult = 1;
 
     [SerializeField] private Transform bitContainer;
     [SerializeField] private Transform bladeContainer;
@@ -57,7 +61,7 @@ public class Enemy : MonoBehaviour
     {
         var filtered = list.Where(p => p.partType == type).ToList();
         if (filtered.Count == 0) return null;
-        return filtered[Random.Range(0, filtered.Count)];
+        return filtered[UnityEngine.Random.Range(0, filtered.Count)];
     }
 
     private void ApplyPart(BeybladePart part, Transform container)
