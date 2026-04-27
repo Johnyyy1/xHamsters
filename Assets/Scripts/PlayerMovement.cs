@@ -4,7 +4,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -44,9 +44,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform ratchetContainer;
 
-<<<<<<< HEAD
-
-    public Action<int,int> changeHp;
+    public Action<int, int> changeHp;
 
     [Header("Overdrive Settings")]
     [SerializeField] private float overdriveMultiplier = 1.8f;
@@ -55,11 +53,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isOverdriving = false;
     private float drainTimer;
 
-
-    void Start()    
-=======
     void Start()
->>>>>>> 6d164a4ab7da348ab6afccfae7d4198b58a34381
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
@@ -81,10 +75,9 @@ public class PlayerMovement : MonoBehaviour
                     break;
             }
         }
-        InitializeStats();
-
 
         InitializeStats();
+
         currentHp = maxHp;
         UpdateHpBar();
 
@@ -99,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (var part in parts)
         {
-            if (part != null) 
+            if (part != null)
             {
                 maxHp += part.hp;
                 acceleration += part.acceleration;
@@ -122,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
             target = hit.point;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && currentHp > 5) 
+        if (Input.GetKey(KeyCode.LeftShift) && currentHp > 5)
         {
             isOverdriving = true;
             HandleHealthDrain();
@@ -166,8 +159,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!canMove || !collision.gameObject.CompareTag("Enemy")) return;
 
-<<<<<<< HEAD
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        if (enemy == null) return;
 
         float myImpact = Vector3.Dot(lastVelocity, collision.contacts[0].normal * -1);
         float enemyImpact = Vector3.Dot(enemy.lastVelocity, collision.contacts[0].normal);
@@ -176,34 +169,24 @@ public class PlayerMovement : MonoBehaviour
         {
             int damageToDeal = Mathf.CeilToInt(Mathf.Max(0, myImpact) * damageMult * 0.1f);
             enemy.TakeDamage(damageToDeal);
-            rb.AddForce(Vector3.Reflect(lastVelocity, collision.contacts[0].normal) * knockback, ForceMode.Impulse);
-=======
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            collision.gameObject.GetComponent<Enemy>().TakeDamage((int)(lastVelocity.magnitude));
-            TakeDamage((int)(enemy.lastVelocity.magnitude));
->>>>>>> 6d164a4ab7da348ab6afccfae7d4198b58a34381
+
+            Vector3 bounceDirection = Vector3.Reflect(lastVelocity, collision.contacts[0].normal).normalized;
+            rb.AddForce(bounceDirection * knockback, ForceMode.Impulse);
         }
         else
         {
             int damageToReceive = Mathf.CeilToInt(Mathf.Max(0, enemyImpact) * enemy.damageMult * 0.1f);
             TakeDamage(damageToReceive);
         }
-        
     }
 
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
-<<<<<<< HEAD
-        changeHp?.Invoke(maxHp,currentHp);
-        if(currentHp < 0)
-=======
-        UpdateHpBar(); 
+        changeHp?.Invoke(maxHp, currentHp);
+        UpdateHpBar();
 
-        if (currentHp <= 0) 
->>>>>>> 6d164a4ab7da348ab6afccfae7d4198b58a34381
+        if (currentHp <= 0)
         {
             GameOver();
             gameObject.SetActive(false);
@@ -220,14 +203,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("dead");
-<<<<<<< HEAD
-       // ShowGameover?.Invoke(); //nefunguje jeste idk proc
-       //mainCamera.GetComponent<GoToScene>().SwitchToDeathScreen();
-
-=======
-        // ShowGameover?.Invoke(); 
+        ShowGameover?.Invoke();
         mainCamera.GetComponent<GoToScene>().SwitchToDeathScreen();
->>>>>>> 6d164a4ab7da348ab6afccfae7d4198b58a34381
     }
 }

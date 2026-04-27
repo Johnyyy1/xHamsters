@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -18,19 +18,25 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int maxHp;
 
-<<<<<<< HEAD
     public Action<int, int> changeHp;
 
-
-
-=======
->>>>>>> 6d164a4ab7da348ab6afccfae7d4198b58a34381
     [SerializeField]
     private float acceleration = 30;
 
     [SerializeField]
     private float maxSpeed;
-    [SerializeField] public float damageMult = 1;
+
+    [SerializeField]
+    public float damageMult = 1;
+
+    [SerializeField]
+    private Transform bitContainer;
+
+    [SerializeField]
+    private Transform bladeContainer;
+
+    [SerializeField]
+    private Transform ratchetContainer;
 
     private Image hpBar;
 
@@ -38,6 +44,9 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         hpBar = GameObject.Find("EnemyHpBar").GetComponent<Image>();
+
+        EquipRandomParts();
+
         currentHp = maxHp;
         UpdateHpBar();
     }
@@ -51,7 +60,6 @@ public class Enemy : MonoBehaviour
         BeybladePart randomBit = GetRandomPartByType(allParts, PartType.Bit);
         BeybladePart randomBlade = GetRandomPartByType(allParts, PartType.Blade);
         BeybladePart randomRatchet = GetRandomPartByType(allParts, PartType.Ratchet);
-
 
         ApplyPart(randomBit, bitContainer);
         ApplyPart(randomBlade, bladeContainer);
@@ -80,7 +88,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
     void Update()
     {
         if (!canMove) return;
@@ -105,20 +112,20 @@ public class Enemy : MonoBehaviour
         transform.Rotate(Vector3.up * rb.linearVelocity.magnitude);
     }
 
-
     private void OnCollisionEnter(Collision collision)
     {
         if (!canMove) return;
 
-        rb.linearVelocity = Vector3.Reflect(lastVelocity, collision.contacts[0].normal);
+        rb.linearVelocity = Vector3.Reflect(lastVelocity, collision.contacts[0].normal) * 0.5f;
     }
 
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
-        UpdateHpBar(); 
+        changeHp?.Invoke(maxHp, currentHp);
+        UpdateHpBar();
 
-        if (currentHp <= 0) 
+        if (currentHp <= 0)
         {
             Destroy(gameObject);
             Camera.main.GetComponent<GoToScene>().SwitchToWinScreen();
