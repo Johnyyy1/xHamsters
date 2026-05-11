@@ -204,6 +204,16 @@ public class PlayerMovement : MonoBehaviour
     public void GameOver()
     {
         ShowGameover?.Invoke();
-        mainCamera.GetComponent<GoToScene>().SwitchToDeathScreen();
+
+        if (SceneManager.GetActiveScene().name == "xHamsters")
+        {
+        mainCamera.GetComponent<GoToScene>().SwitchToDeathScreen(0);
+            
+        }
+        else if (SceneManager.GetActiveScene().name == "Arena2")
+        {
+            mainCamera.GetComponent<GoToScene>().SwitchToDeathScreen(1);
+        }
+
     }
 }
