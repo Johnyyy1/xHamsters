@@ -125,8 +125,8 @@ Transform:
   m_GameObject: {fileID: 1821059037864136634}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.62, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4767542478835465104}
@@ -189,7 +189,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &4205820350395311528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,6 +213,8 @@ MonoBehaviour:
   bitContainer: {fileID: 6694291987333617967}
   bladeContainer: {fileID: 1216774425769353270}
   ratchetContainer: {fileID: 6287454668698275579}
+  bounceMultiplier: 1.2
+  clashForce: 15
 --- !u!1 &3900432892235624119
 GameObject:
   m_ObjectHideFlags: 0

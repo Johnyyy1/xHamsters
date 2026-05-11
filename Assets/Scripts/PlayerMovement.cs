@@ -27,6 +27,11 @@ public class PlayerMovement : MonoBehaviour
     private float damageMult;
     [SerializeField]
     private float knockback;
+    [SerializeField]
+    public float bounceMultiplier = 1.2f;
+
+    [SerializeField]
+    private float clashForce = 15f; 
 
     private Image hpBar;
 
@@ -48,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Overdrive Settings")]
     [SerializeField] private float overdriveMultiplier = 1.8f;
-    [SerializeField] private float healthDrainPerSecond = 15f;
+    [SerializeField] private float healthDrainPerSecond = 5f;
 
     private bool isOverdriving = false;
     private float drainTimer;
@@ -157,26 +162,37 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!canMove || !collision.gameObject.CompareTag("Enemy")) return;
+        if (!canMove) return;
 
-        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-        if (enemy == null) return;
 
-        float myImpact = Vector3.Dot(lastVelocity, collision.contacts[0].normal * -1);
-        float enemyImpact = Vector3.Dot(enemy.lastVelocity, collision.contacts[0].normal);
 
-        if (myImpact > enemyImpact)
+        Vector3 bounceDirection = Vector3.Reflect(lastVelocity, collision.contacts[0].normal);
+        bounceDirection.y = 0;
+
+
+        rb.linearVelocity = bounceDirection * bounceMultiplier;
+
+        rb.AddForce(bounceDirection.normalized * knockback, ForceMode.Impulse);
+
+
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            int damageToDeal = Mathf.CeilToInt(Mathf.Max(0, myImpact) * damageMult * 0.1f);
-            enemy.TakeDamage(damageToDeal);
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            if (enemy == null) return;
 
-            Vector3 bounceDirection = Vector3.Reflect(lastVelocity, collision.contacts[0].normal).normalized;
-            rb.AddForce(bounceDirection * knockback, ForceMode.Impulse);
-        }
-        else
-        {
-            int damageToReceive = Mathf.CeilToInt(Mathf.Max(0, enemyImpact) * enemy.damageMult * 0.1f);
-            TakeDamage(damageToReceive);
+            float myImpact = Vector3.Dot(lastVelocity, collision.contacts[0].normal * -1);
+            float enemyImpact = Vector3.Dot(enemy.lastVelocity, collision.contacts[0].normal);
+
+            if (myImpact > enemyImpact)
+            {
+                int damageToDeal = Mathf.CeilToInt(Mathf.Max(0, myImpact) * damageMult * 0.1f);
+                enemy.TakeDamage(damageToDeal*3);
+            }
+            else if (enemyImpact > myImpact)
+            {
+                int damageToReceive = Mathf.CeilToInt(Mathf.Max(0, enemyImpact) * enemy.damageMult * 0.1f);
+                TakeDamage(damageToReceive/3);
+            }
         }
     }
 
