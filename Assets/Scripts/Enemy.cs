@@ -37,6 +37,11 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private Transform ratchetContainer;
+    [SerializeField]
+    public float bounceMultiplier = 1.2f;
+
+    [SerializeField]
+    private float clashForce = 15f;
 
     private Image hpBar;
 
@@ -115,8 +120,13 @@ public class Enemy : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (!canMove) return;
+        Vector3 bounceDirection = Vector3.Reflect(lastVelocity, collision.contacts[0].normal);
 
-        rb.linearVelocity = Vector3.Reflect(lastVelocity, collision.contacts[0].normal) * 0.5f;
+        bounceDirection.y = 0;
+
+        rb.linearVelocity = bounceDirection * bounceMultiplier;
+
+        rb.AddForce(bounceDirection.normalized * clashForce, ForceMode.Impulse);
     }
 
     public void TakeDamage(int damage)

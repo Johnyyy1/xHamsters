@@ -59,8 +59,8 @@ Transform:
   m_GameObject: {fileID: 4182392230685889071}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4211641238402804089}
@@ -115,7 +115,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &8757882213666992488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,9 +135,13 @@ MonoBehaviour:
   maxSpeed: 20
   damageMult: 0
   knockback: 0
+  bounceMultiplier: 1.2
+  clashForce: 15
   bitContainer: {fileID: 2373438557953722180}
   bladeContainer: {fileID: 233939980159709567}
   ratchetContainer: {fileID: 1995112752129289463}
+  overdriveMultiplier: 1.8
+  healthDrainPerSecond: 15
 --- !u!1 &4999982020192091097
 GameObject:
   m_ObjectHideFlags: 0
