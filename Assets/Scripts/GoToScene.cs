@@ -60,6 +60,6 @@ public class GoToScene : MonoBehaviour
     {
         Application.Quit(); // pokud hrajes v buildu
 
-        UnityEditor.EditorApplication.isPlaying = false; // pokud hrajes v editoru (Play Mode)
+        //UnityEditor.EditorApplication.isPlaying = false; // pokud hrajes v editoru (Play Mode)
     }
 }
